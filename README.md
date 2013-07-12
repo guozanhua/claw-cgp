@@ -1,6 +1,6 @@
 claw-cgp
 ========
-casual game platform
+claw - c(casual) g(game) p(platform)
 
 
 PLEASE NOTE
