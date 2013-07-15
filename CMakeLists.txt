@@ -17,7 +17,7 @@ endif()
 if(UNIX)
     set(CMAKE_CXX_FLAGS_DEBUG "-g -Wall")
 else()
-	set(CMAKE_CXX_FLAGS_DEBUG "-W3 -MDd -EHa -ZI -DEBUG -Od")
+    set(CMAKE_CXX_FLAGS_DEBUG "-DEBUG -W3 -MDd -EHa -ZI -Od")
 endif()
 
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/bin)
@@ -25,7 +25,7 @@ set(LIBRARY_OUTPUT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/dep/lib)
 
 if(UNIX)
 include_directories(
-	${CMAKE_CURRENT_SOURCE_DIR}/src #add this path for tests
+    ${CMAKE_CURRENT_SOURCE_DIR}/src #add this path for tests
     /usr/local/include
 )
 

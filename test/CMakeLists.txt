@@ -25,7 +25,7 @@ file(GLOB_RECURSE SRCS *.cpp *.h *.inl)
 
 set(Sources
      ${DEP_SRCS}
-	 ${CGP_SRCS}
+     ${CGP_SRCS}
      ${SRCS}
 )
 
