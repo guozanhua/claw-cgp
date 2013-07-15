@@ -1,4 +1,4 @@
-#Author: sheppard(ysf1026@gmail.com) 2013-07-14
+#Author: sheppard(ysf1026@gmail.com) 2013-07-15
 #       Desc:
 
 project(claw-cgp)
@@ -9,7 +9,7 @@ include_directories(
     ${PROJECT_SOURCE_DIR}
 )
 
-set(BIN_NAME "client")
+set(BIN_NAME "hall")
 message(STATUS "${BIN_NAME}... @${PROJECT_SOURCE_DIR}")
 
 file(GLOB_RECURSE SRCS *.cpp *.h *.inl)

@@ -9,7 +9,7 @@ include_directories(
     ${PROJECT_SOURCE_DIR}
 )
 
-set(BIN_NAME "client")
+set(BIN_NAME "login")
 message(STATUS "${BIN_NAME}... @${PROJECT_SOURCE_DIR}")
 
 file(GLOB_RECURSE SRCS *.cpp *.h *.inl)

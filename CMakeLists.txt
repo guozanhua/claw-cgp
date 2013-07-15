@@ -48,7 +48,7 @@ endif()
 if(MSVC)
     file(GLOB_RECURSE DEP_SRCS dep/win/include/*.h dep/win/lib/boost/*.cpp)
 endif()
-file(GLOB_RECURSE CGP_SRCS src/claw/gse/*.h src/claw/gse/*.cpp)
+file(GLOB_RECURSE CGP_SRCS src/claw/cgp/*.h src/claw/cgp/*.cpp) #for test
 
 add_subdirectory(src)
 add_subdirectory(test)
