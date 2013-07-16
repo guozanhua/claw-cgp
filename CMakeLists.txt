@@ -38,6 +38,7 @@ include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/src
     ${CMAKE_CURRENT_SOURCE_DIR}/dep/include
     ${CMAKE_CURRENT_SOURCE_DIR}/dep/win/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/dep/win/include/cppzmq
 )
 
 link_directories(

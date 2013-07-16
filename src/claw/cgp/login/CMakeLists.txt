@@ -20,3 +20,8 @@ set(Sources
 )
 
 add_executable(${BIN_NAME} ${Sources})
+if(UNIX)
+    target_link_libraries(${BIN_NAME} zmq protobuf pthread)
+elseif(MSVC)
+    target_link_libraries(${BIN_NAME} libzmq_d libprotobuf)
+endif()
