@@ -22,6 +22,10 @@ endif()
 
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/bin)
 
+include_directories(
+    ${CMAKE_CURRENT_SOURCE_DIR}/src
+)
+
 file(GLOB_RECURSE CGP_SRCS src/claw/cgp/*.h src/claw/cgp/*.cpp) #for test
 
 add_subdirectory(src)

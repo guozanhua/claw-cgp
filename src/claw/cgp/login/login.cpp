@@ -3,10 +3,10 @@
 
 #include "claw/cgp/login/login.h"
 #include <iostream>
+#include <claw/gse/thread.h>
 #include <google/protobuf/stubs/common.h>
 #include <zmq.hpp>
 #include "claw/cgp/common/proto/cmd.pb.h"
-#include "claw/cgp/login/thread.h"
 
 namespace claw
 {
@@ -19,7 +19,7 @@ struct ThreadParam
     zmq::context_t* context;
 };
 
-void* worker_routine(void* arg)
+void worker_routine(void* arg)
 {
     ThreadParam* param = (ThreadParam*)arg;
     int thread_id = param->thread_id;
@@ -48,8 +48,6 @@ void* worker_routine(void* arg)
         memcpy((void*)reply.data(), "World", 6);
         socket.send(reply);
     }
-
-    return NULL;
 }
 
 int main(int argc, char* argv[])
@@ -69,8 +67,8 @@ int main(int argc, char* argv[])
     for(int thread_nbr=0; thread_nbr!=5; thread_nbr++)
     {
         threadParam.thread_id = thread_nbr;
-        Thread worker;
-        worker.Start((ThreadFunction)worker_routine, (void*)&threadParam);
+		claw::gse::Thread worker;
+        worker.Start(worker_routine, (void*)&threadParam);
         std::cout<<"create thread, turn="<<thread_nbr<<std::endl;
     }
     zmq::proxy(clients, workers, NULL);
