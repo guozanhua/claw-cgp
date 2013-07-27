@@ -15,13 +15,13 @@ message(STATUS "${BIN_NAME}... @${PROJECT_SOURCE_DIR}")
 file(GLOB_RECURSE SRCS *.cpp *.h *.inl)
 
 set(Sources
-    ${DEP_SRCS}
+    ${COMMON_SRCS}
     ${SRCS}
 )
 
 add_executable(${BIN_NAME} ${Sources})
 if(UNIX)
-    target_link_libraries(${BIN_NAME} zmq protobuf pthread)
+    target_link_libraries(${BIN_NAME} pthread zmq protobuf claw-gse)
 elseif(MSVC)
     target_link_libraries(${BIN_NAME} libzmq_d libprotobuf)
 endif()

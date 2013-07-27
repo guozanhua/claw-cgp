@@ -15,5 +15,6 @@
 /bin/Debug
 
 /bin/cmake_build
+/bin
 
 *.swp

@@ -50,6 +50,11 @@ void worker_routine(void* arg)
     }
 }
 
+} //namespace cgp
+} //namespace claw
+
+using namespace claw::cgp;
+
 int main(int argc, char* argv[])
 {
     GOOGLE_PROTOBUF_VERIFY_VERSION;
@@ -76,6 +81,3 @@ int main(int argc, char* argv[])
     google::protobuf::ShutdownProtobufLibrary();
     return 0;
 }
-
-} //namespace cgp
-} //namespace claw

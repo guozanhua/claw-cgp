@@ -26,7 +26,10 @@ include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
-file(GLOB_RECURSE CGP_SRCS src/claw/cgp/*.h src/claw/cgp/*.cpp) #for test
+#file(GLOB_RECURSE CGP_SRCS src/claw/cgp/*.h src/claw/cgp/*.cpp) #for test
+#TODO exclude function main
+
+file(GLOB_RECURSE COMMON_SRCS src/claw/cgp/common/*.h src/claw/cgp/common/*.cpp src/claw/cgp/common/*.cc)
 
 add_subdirectory(src)
 add_subdirectory(test)

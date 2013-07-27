@@ -31,7 +31,7 @@ set(Sources
 
 add_executable(${BIN_NAME} ${Sources})
 if(UNIX)
-    target_link_libraries(${BIN_NAME} gtest)
+    target_link_libraries(${BIN_NAME} pthread gtest)
 elseif(MSVC)
     target_link_libraries(${BIN_NAME} gtestd)
 endif()
