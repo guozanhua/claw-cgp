@@ -26,8 +26,10 @@ include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
-#file(GLOB_RECURSE CGP_SRCS src/claw/cgp/*.h src/claw/cgp/*.cpp) #for test
-#TODO exclude function main
+file(GLOB_RECURSE CGP_SRCS src/claw/cgp/*.h src/claw/cgp/*.cpp) #for test
+list(REMOVE_ITEM CGP_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/src/claw/cgp/client/client.cpp")
+list(REMOVE_ITEM CGP_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/src/claw/cgp/hall/hall.cpp")
+list(REMOVE_ITEM CGP_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/src/claw/cgp/login/login.cpp")
 
 file(GLOB_RECURSE COMMON_SRCS src/claw/cgp/common/*.h src/claw/cgp/common/*.cpp src/claw/cgp/common/*.cc)
 
