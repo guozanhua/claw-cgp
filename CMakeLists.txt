@@ -21,34 +21,7 @@ else()
 endif()
 
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/bin)
-set(LIBRARY_OUTPUT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/dep/lib)
 
-if(UNIX)
-include_directories(
-    ${CMAKE_CURRENT_SOURCE_DIR}/src
-    /usr/local/include
-)
-
-link_directories(
-    ${CMAKE_CURRENT_SOURCE_DIR}/lib
-    /usr/local/lib
-)
-elseif(MSVC)
-include_directories(
-    ${CMAKE_CURRENT_SOURCE_DIR}/src
-    ${CMAKE_CURRENT_SOURCE_DIR}/dep/include
-    ${CMAKE_CURRENT_SOURCE_DIR}/dep/win/include
-    ${CMAKE_CURRENT_SOURCE_DIR}/dep/win/include/cppzmq
-)
-
-link_directories(
-    ${CMAKE_CURRENT_SOURCE_DIR}/dep/win/lib/debug
-)
-endif()
-
-if(MSVC)
-    file(GLOB_RECURSE DEP_SRCS dep/win/include/*.h dep/win/lib/boost/*.cpp)
-endif()
 file(GLOB_RECURSE CGP_SRCS src/claw/cgp/*.h src/claw/cgp/*.cpp) #for test
 
 add_subdirectory(src)
