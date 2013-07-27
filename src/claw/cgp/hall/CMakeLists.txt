@@ -15,7 +15,7 @@ message(STATUS "${BIN_NAME}... @${PROJECT_SOURCE_DIR}")
 file(GLOB_RECURSE SRCS *.cpp *.h *.inl)
 
 set(Sources
-    ${DEP_SRCS}
+    ${COMMON_SRCS}
     ${SRCS}
 )
 
