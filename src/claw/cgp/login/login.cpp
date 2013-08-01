@@ -2,7 +2,7 @@
 //      Desc:
 
 #include "claw/cgp/login/login.h"
-#include <iostream>
+#include <claw/gse/log.h>
 #include <claw/gse/thread.h>
 #include <google/protobuf/stubs/common.h>
 #include <zmq.hpp>
@@ -36,9 +36,9 @@ void worker_routine(void* arg)
         socket.recv(&request);
         if(false == cmd.ParseFromString(std::string((char*)request.data(), request.size()-1)))
         {
-            std::cout<<"Parse error, id="<<cmd.id()<<" content="<<cmd.content()<<std::endl;
+            LOG(ERROR)<<"Parse error, id="<<cmd.id()<<" content="<<cmd.content();
         }
-        std::cout<<"Thread("<<thread_id<<") Received request: [id="<<cmd.id()<<" content="<<cmd.content()<<"]"<< std::endl;
+        LOG(INFO)<<"Thread("<<thread_id<<") Received request: [id="<<cmd.id()<<" content="<<cmd.content()<<"]";
 
         //Do some 'work'
         //sleep (1);
@@ -59,7 +59,9 @@ int main(int argc, char* argv[])
 {
     GOOGLE_PROTOBUF_VERIFY_VERSION;
 
-    std::cout<<"logic_server start..."<<std::endl;
+    claw::gse::Log log(argv[0], "../log");
+
+    LOG(INFO)<<"logic_server start...";
     zmq::context_t context(1);
     zmq::socket_t clients(context, ZMQ_ROUTER);
     clients.bind("tcp://*:5555");
@@ -74,7 +76,7 @@ int main(int argc, char* argv[])
         threadParam.thread_id = thread_nbr;
 		claw::gse::Thread worker;
         worker.Start(worker_routine, (void*)&threadParam);
-        std::cout<<"create thread, turn="<<thread_nbr<<std::endl;
+        LOG(INFO)<<"create thread, turn="<<thread_nbr;
     }
     zmq::proxy(clients, workers, NULL);
 

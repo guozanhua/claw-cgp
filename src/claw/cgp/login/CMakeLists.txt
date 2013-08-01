@@ -21,7 +21,7 @@ set(Sources
 
 add_executable(${BIN_NAME} ${Sources})
 if(UNIX)
-    target_link_libraries(${BIN_NAME} pthread zmq protobuf claw-gse)
+    target_link_libraries(${BIN_NAME} pthread zmq protobuf glog claw-gse)
 elseif(MSVC)
     target_link_libraries(${BIN_NAME} libzmq_d libprotobuf)
 endif()

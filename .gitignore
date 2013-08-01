@@ -17,4 +17,6 @@
 /bin/cmake_build
 /bin
 
+/log
+
 *.swp
