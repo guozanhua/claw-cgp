@@ -20,3 +20,4 @@ set(Sources
 )
 
 add_executable(${BIN_NAME} ${Sources})
+target_link_libraries(${BIN_NAME} pthread zmq protobuf glog claw-gse)
