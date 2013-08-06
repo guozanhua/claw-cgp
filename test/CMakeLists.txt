@@ -22,7 +22,7 @@ set(Sources
 
 add_executable(${BIN_NAME} ${Sources})
 if(UNIX)
-    target_link_libraries(${BIN_NAME} pthread gtest zmq protobuf)
+    target_link_libraries(${BIN_NAME} pthread gtest zmq protobuf glog jsoncpp)
 elseif(MSVC)
     target_link_libraries(${BIN_NAME} gtestd)
 endif()

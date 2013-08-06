@@ -1,0 +1,11 @@
+{
+    "net" : 
+    {
+        "login_ip" : "127.0.0.1",
+        "login_port" : "5555",
+        "hall_ip" : "127.0.0.1",
+        "hall_port" : "5556",
+        "game_room_1_ip" : "127.0.0.1",
+        "game_room_1_port" : "5556"
+    }
+}

@@ -1,7 +1,6 @@
-//Author: sheppard(ysf1026@gmail.com) 2013-07-16
+//Author: sheppard(ysf1026@gmail.com) 2013-08-05
 //      Desc:
 
-#include "claw/cgp/login/login.h"
 #include <claw/gse/log.h>
 #include <claw/gse/thread.h>
 #include <google/protobuf/stubs/common.h>
@@ -64,10 +63,10 @@ int main(int argc, char* argv[])
 
     claw::gse::Log log(argv[0], "../log");
 
-    LOG(INFO)<<"logic_server start...";
+    LOG(INFO)<<"hall start...";
     zmq::context_t context(1);
     zmq::socket_t clients(context, ZMQ_ROUTER);
-    clients.bind(std::string("tcp://*:").append(g_config.common.login_port).c_str());
+    clients.bind(std::string("tcp://*:").append(g_config.common.hall_port).c_str());
     zmq::socket_t workers(context, ZMQ_DEALER);
     workers.bind("inproc://workers");
 
