@@ -33,20 +33,17 @@ void worker_routine(void* arg)
 
     while(true)
     {
-        //Wait for next request from client
+        //wait for next request from client
         proto::Cmd cmd;
         zmq::message_t request;
         socket.recv(&request);
         if(false == cmd.ParseFromString(std::string((char*)request.data(), request.size()-1)))
         {
-            LOG(ERROR)<<"Parse error, id="<<cmd.id()<<" content="<<cmd.content();
+            LOG(ERROR)<<"parse error, id="<<cmd.id()<<" content="<<cmd.content();
         }
-        LOG(INFO)<<"Thread("<<thread_id<<") Received request: [id="<<cmd.id()<<" content="<<cmd.content()<<"]";
+        LOG(INFO)<<"thread("<<thread_id<<") Received request: [id="<<cmd.id()<<" content="<<cmd.content()<<"]";
 
-        //Do some 'work'
-        //sleep (1);
-
-        //Send reply back to client
+        //send reply back to client
         zmq::message_t reply(6);
         memcpy((void*)reply.data(), "World", 6);
         socket.send(reply);
