@@ -41,11 +41,11 @@ void worker_routine(void* arg)
         {
             LOG(ERROR)<<"parse error, id="<<cmd.id()<<" content="<<cmd.content();
         }
-        LOG(INFO)<<"thread("<<thread_id<<") Received request: [id="<<cmd.id()<<" content="<<cmd.content()<<"]";
+        LOG(INFO)<<"thread("<<thread_id<<") received request: [id="<<cmd.id()<<" content="<<cmd.content()<<"]";
 
         //send reply back to client
         zmq::message_t reply(6);
-        memcpy((void*)reply.data(), "World", 6);
+        memcpy((void*)reply.data(), "world", 6);
         socket.send(reply);
     }
 }
