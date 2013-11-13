@@ -1,0 +1,13 @@
+// Author: sheppard(ysf1026@gmail.com) 2013-11-13
+
+package proto;
+
+message CLPing
+{
+	optional int32 time = 1;
+}
+
+message LCRetPong
+{
+	optional int32 time = 1;
+}
