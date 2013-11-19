@@ -16,10 +16,17 @@ func TestEncode(t *testing.T) {
 
 	data, err := Encode(ping)
 	if err != nil {
-		fmt.Println(err)
+		t.Error(err)
 	}
 	fmt.Println(data)
 	fmt.Println(string(data))
+
+	var ping2 pb.Message
+	ping2, err = Decode(data)
+	if err != nil {
+		t.Error(err)
+	}
+	fmt.Println(ping2)
 }
 
 func TestDecode(t *testing.T) {

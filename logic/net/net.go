@@ -5,6 +5,7 @@ package net
 import (
 	"bytes"
 	"encoding/binary"
+	"errors"
 	"reflect"
 	pb "code.google.com/p/goprotobuf/proto"
 )
@@ -34,6 +35,27 @@ func Encode(msg pb.Message) ([]byte, error) {
 }
 
 func Decode(input []byte) (pb.Message, error) {
-	//TODO
-	return nil, nil
+	buf := bytes.NewBuffer(input)
+
+	var nameLen byte
+	err := binary.Read(buf, binary.BigEndian, &nameLen)
+	if err != nil {
+		return nil, err
+	}
+	msgName := string(buf.Next(int(nameLen)))
+
+	var dataLen uint16
+	err = binary.Read(buf, binary.BigEndian, &dataLen)
+	if err != nil {
+		return nil, err
+	}
+	data := buf.Next(int(dataLen))
+
+	msgFunc, ok := protos[msgName]
+	if ok {
+		msg := msgFunc()
+		pb.Unmarshal(data, msg)
+		return msg, nil
+	}
+	return nil, errors.New("Message not registed")
 }
