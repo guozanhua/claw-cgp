@@ -4,24 +4,32 @@ package main
 
 import (
 	"fmt"
-	pb "code.google.com/p/goprotobuf/proto"
-	//"github.com/yangsf5/claw-cgp/logic/player"
-	. "github.com/yangsf5/claw-cgp/proto"
+	"net"
+	"github.com/yangsf5/claw-cgp/logic/player"
+	"github.com/yangsf5/claw-cgp/util"
 )
 
 func main() {
 	fmt.Println("Logic starts ...")
 
-	ping := &CLPing{
-		Time: pb.Int32(12),
+	service := ":1103"
+	tcpAddr, err := net.ResolveTCPAddr("tcp", service)
+	util.CheckFatal(err)
+
+	listener, err := net.ListenTCP("tcp", tcpAddr)
+	util.CheckFatal(err)
+
+	for {
+		conn, err := listener.Accept()
+		if err != nil {
+			continue
+		}
+
+		client := &player.Player{
+			Conn: conn,
+		}
+		go client.Start()
 	}
-
-	data, _ := pb.Marshal(ping)
-
-	ping2 := new(CLPing)
-	pb.Unmarshal(data, ping2)
-
-	fmt.Println(ping2)
 
 
 	fmt.Println("Logic stops ...")
