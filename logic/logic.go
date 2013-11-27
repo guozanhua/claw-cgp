@@ -12,7 +12,7 @@ import (
 func main() {
 	fmt.Println("Logic starts ...")
 
-	service := ":1103"
+	service := ":1104"
 	tcpAddr, err := net.ResolveTCPAddr("tcp", service)
 	util.CheckFatal(err)
 
