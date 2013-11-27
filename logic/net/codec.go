@@ -19,16 +19,23 @@ func Encode(msg pb.Message) ([]byte, error) {
 	msgName = msgName[7:] //TODO better way to remove *proto.
 
 	buf := new(bytes.Buffer)
+	// Write total length
+	var totalLen uint16 = uint16(len(msgName)) + uint16(len(data))
+	err = binary.Write(buf, binary.BigEndian, totalLen)
+	if err != nil {
+		return nil, err
+	}
+
+	// Write name length
 	err = binary.Write(buf, binary.BigEndian, byte(len(msgName)))
 	if err != nil {
 		return nil, err
 	}
+
+	// Write name of message
 	buf.Write([]byte(msgName))
 
-	err = binary.Write(buf, binary.BigEndian, uint16(len(data)))
-	if err != nil {
-		return nil, err
-	}
+	// Write data of message
 	buf.Write(data)
 
 	return buf.Bytes(), nil
@@ -37,19 +44,26 @@ func Encode(msg pb.Message) ([]byte, error) {
 func Decode(input []byte) (pb.Message, error) {
 	buf := bytes.NewBuffer(input)
 
-	var nameLen byte
-	err := binary.Read(buf, binary.BigEndian, &nameLen)
+	// Read total length
+	var totalLen uint16
+	err := binary.Read(buf, binary.BigEndian, &totalLen)
 	if err != nil {
 		return nil, err
 	}
+
+	// Read name length
+	var nameLen byte
+	err = binary.Read(buf, binary.BigEndian, &nameLen)
+	if err != nil {
+		return nil, err
+	}
+
+	// Read name of message
 	msgName := string(buf.Next(int(nameLen)))
 
-	var dataLen uint16
-	err = binary.Read(buf, binary.BigEndian, &dataLen)
-	if err != nil {
-		return nil, err
-	}
-	data := buf.Next(int(dataLen))
+	// Read data of message
+	dataLen := int(totalLen) - int(nameLen)
+	data := buf.Next(dataLen)
 
 	msgFunc, ok := protos[msgName]
 	if ok {
