@@ -59,10 +59,7 @@ func (p *Player) Tick() {
 }
 
 func (p *Player) Send(msg pb.Message) {
-	msgBuf, err := myNet.Encode(msg)
-	p.checkNetError(err)
-	fmt.Println(string(msgBuf))
-	_, err = p.conn.Write(msgBuf)
+	err := myNet.Send(p.conn, msg)
 	p.checkNetError(err)
 }
 

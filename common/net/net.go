@@ -6,10 +6,8 @@ import (
 	"bytes"
 	"encoding/binary"
 	"net"
+	pb "code.google.com/p/goprotobuf/proto"
 )
-
-func Handle() {
-}
 
 func Recv(conn net.Conn) ([]byte, error) {
 	// Read total length
@@ -34,4 +32,20 @@ func Recv(conn net.Conn) ([]byte, error) {
 	msg.Write(restBuf[:])
 
 	return msg.Bytes(), nil
+}
+
+func Send(conn net.Conn, msg pb.Message) error {
+	msgBuf, err := Encode(msg)
+	if err != nil {
+		return err
+	}
+
+	_, err = conn.Write(msgBuf)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func Handle() {
 }
