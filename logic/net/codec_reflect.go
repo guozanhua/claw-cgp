@@ -13,7 +13,7 @@ var (
 
 func init() {
 	protos = make(map[string] func() pb.Message)
-	protos["CLPing"] = func() pb.Message{
+	protos["CLPing"] = func() pb.Message {
 		return &CLPing{} //TODO check optional field default value?
 	}
 }
