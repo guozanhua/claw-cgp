@@ -42,10 +42,10 @@ func (p *Player) Ping() {
 
 func (p *Player) Tick() {
 	for ; !p.Disconnected; {
-		msg := p.Recv()
-		msgName, _, err := myNet.Decode(msg)
+		msgName, _, err := myNet.Recv(p.conn)
+		p.checkNetError(err)
 		if err != nil {
-			fmt.Println("Message decode error", err)
+			break;
 		}
 		fmt.Println("Recv msg", msgName)
 		exec, ok := handlers[msgName]
@@ -61,12 +61,6 @@ func (p *Player) Tick() {
 func (p *Player) Send(msg pb.Message) {
 	err := myNet.Send(p.conn, msg)
 	p.checkNetError(err)
-}
-
-func (p *Player) Recv() []byte {
-	buf, err := myNet.Recv(p.conn)
-	p.checkNetError(err)
-	return buf
 }
 
 func (p *Player) checkNetError(err error) {

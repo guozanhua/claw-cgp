@@ -9,13 +9,13 @@ import (
 	pb "code.google.com/p/goprotobuf/proto"
 )
 
-func Recv(conn net.Conn) ([]byte, error) {
+func Recv(conn net.Conn) (string, pb.Message, error) {
 	// Read total length
 	var totalLen uint16
 	var totalLenBuf [2]byte
 	_, err := conn.Read(totalLenBuf[:])
 	if err != nil {
-		return nil, err
+		return "", nil, err
 	}
 	var totalLenBuffer *bytes.Buffer = bytes.NewBuffer(totalLenBuf[:])
 	binary.Read(totalLenBuffer, binary.BigEndian, &totalLen)
@@ -24,14 +24,14 @@ func Recv(conn net.Conn) ([]byte, error) {
 	restBuf := make([]byte, totalLen)
 	_, err = conn.Read(restBuf[:])
 	if err != nil {
-		return nil, err
+		return "", nil, err
 	}
 
-	msg := new(bytes.Buffer)
-	msg.Write(totalLenBuf[:])
-	msg.Write(restBuf[:])
+	msgBuf := new(bytes.Buffer)
+	msgBuf.Write(totalLenBuf[:])
+	msgBuf.Write(restBuf[:])
 
-	return msg.Bytes(), nil
+	return Decode(msgBuf.Bytes())
 }
 
 func Send(conn net.Conn, msg pb.Message) error {

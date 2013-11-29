@@ -26,15 +26,15 @@ func (p *Player) Stop() {
 
 func (p *Player) Tick() {
 	for ; !p.Disconnected; {
-		msg := p.Recv()
-		msgName, pbMsg, err := myNet.Decode(msg)
+		msgName, msg, err := myNet.Recv(p.Conn)
+		p.checkNetError(err)
 		if err != nil {
-			fmt.Println("Message decode error", err)
+			break
 		}
 		fmt.Println("Recv msg", msgName)
 		exec, ok := handlers[msgName]
 		if ok {
-			exec(p, pbMsg)
+			exec(p, msg)
 		} else {
 			fmt.Println("No handler")
 		}
@@ -46,12 +46,6 @@ func (p *Player) Tick() {
 func (p *Player) Send(msg pb.Message) {
 	err := myNet.Send(p.Conn, msg)
 	p.checkNetError(err)
-}
-
-func (p *Player) Recv() []byte {
-	buf, err := myNet.Recv(p.Conn)
-	p.checkNetError(err)
-	return buf
 }
 
 func (p *Player) checkNetError(err error) {
