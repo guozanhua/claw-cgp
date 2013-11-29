@@ -12,7 +12,7 @@ func main() {
 	fmt.Println("Client starts ...")
 
 	player := &player.Player{}
-	player.Login()
+	player.Start()
 	player.Ping()
 
 	for {

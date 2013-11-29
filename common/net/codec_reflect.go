@@ -16,4 +16,7 @@ func init() {
 	protos["CLPing"] = func() pb.Message {
 		return &CLPing{} //TODO check optional field default value?
 	}
+	protos["LCRetPong"] = func() pb.Message {
+		return &LCRetPong{} //TODO check optional field default value?
+	}
 }
