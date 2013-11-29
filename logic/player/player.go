@@ -7,7 +7,6 @@ import (
 	"encoding/binary"
 	"fmt"
 	"net"
-	"reflect"
 	pb "code.google.com/p/goprotobuf/proto"
 	myNet "github.com/yangsf5/claw-cgp/common/net"
 )
@@ -30,15 +29,14 @@ func (p *Player) Stop() {
 func (p *Player) Tick() {
 	for ; !p.Disconnected; {
 		msg := p.Recv()
-		pbMsg, err := myNet.Decode(msg)
+		msgName, pbMsg, err := myNet.Decode(msg)
 		if err != nil {
 			fmt.Println("Message decode error", err)
 		}
-		fmt.Println(pbMsg)
-		fmt.Println(handlers, reflect.TypeOf(pbMsg).String())
-		exec, ok := handlers[reflect.TypeOf(pbMsg).String()]
+		fmt.Println("Recv msg", msgName)
+		exec, ok := handlers[msgName]
 		if ok {
-			exec(p)
+			exec(p, pbMsg)
 		} else {
 			fmt.Println("No handler")
 		}

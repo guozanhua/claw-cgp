@@ -41,21 +41,21 @@ func Encode(msg pb.Message) ([]byte, error) {
 	return buf.Bytes(), nil
 }
 
-func Decode(input []byte) (pb.Message, error) {
+func Decode(input []byte) (string, pb.Message, error) {
 	buf := bytes.NewBuffer(input)
 
 	// Read total length
 	var totalLen uint16
 	err := binary.Read(buf, binary.BigEndian, &totalLen)
 	if err != nil {
-		return nil, err
+		return "", nil, err
 	}
 
 	// Read name length
 	var nameLen byte
 	err = binary.Read(buf, binary.BigEndian, &nameLen)
 	if err != nil {
-		return nil, err
+		return "", nil, err
 	}
 
 	// Read name of message
@@ -69,7 +69,7 @@ func Decode(input []byte) (pb.Message, error) {
 	if ok {
 		msg := msgFunc()
 		pb.Unmarshal(data, msg)
-		return msg, nil
+		return msgName, msg, nil
 	}
-	return nil, errors.New("Message not registed")
+	return msgName, nil, errors.New("Message not registed")
 }
