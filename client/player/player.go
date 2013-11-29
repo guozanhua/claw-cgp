@@ -3,8 +3,6 @@
 package player
 
 import (
-	"bytes"
-	"encoding/binary"
 	"fmt"
 	"net"
 	pb "code.google.com/p/goprotobuf/proto"
@@ -69,24 +67,9 @@ func (p *Player) Send(msg pb.Message) {
 }
 
 func (p *Player) Recv() []byte {
-	// Read total length
-	var totalLen uint16
-	var totalLenBuf [2]byte
-	_, err := p.conn.Read(totalLenBuf[:])
+	buf, err := myNet.Recv(p.conn)
 	p.checkNetError(err)
-	var totalLenBuffer *bytes.Buffer = bytes.NewBuffer(totalLenBuf[:])
-	binary.Read(totalLenBuffer, binary.BigEndian, &totalLen)
-
-	// Read the rest of message
-	restBuf := make([]byte, totalLen)
-	_, err = p.conn.Read(restBuf[:])
-	p.checkNetError(err)
-
-	msg := new(bytes.Buffer)
-	msg.Write(totalLenBuf[:])
-	msg.Write(restBuf[:])
-
-	return msg.Bytes()
+	return buf
 }
 
 func (p *Player) checkNetError(err error) {
