@@ -29,7 +29,8 @@ func (p *Player) Stop() {
 }
 
 func (p *Player) Login() {
-	_, err := net.Dial("tcp", "127.0.0.1:1104")
+	conn, err := net.Dial("tcp", "127.0.0.1:1104")
+	p.conn = conn
 	util.CheckFatal(err)
 	fmt.Println("Connnected")
 }
@@ -53,6 +54,7 @@ func (p *Player) Tick() {
 func (p *Player) Send(msg pb.Message) {
 	msgBuf, err := myNet.Encode(msg)
 	p.checkNetError(err)
+	fmt.Println(string(msgBuf))
 	_, err = p.conn.Write(msgBuf)
 	p.checkNetError(err)
 }
