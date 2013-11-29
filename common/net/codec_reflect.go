@@ -4,7 +4,7 @@ package net
 
 import (
 	pb "code.google.com/p/goprotobuf/proto"
-	. "github.com/yangsf5/claw-cgp/proto"
+	. "github.com/yangsf5/claw-cgp/common/proto"
 )
 
 var (

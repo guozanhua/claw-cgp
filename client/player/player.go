@@ -8,8 +8,8 @@ import (
 	"fmt"
 	"net"
 	pb "code.google.com/p/goprotobuf/proto"
-	myNet "github.com/yangsf5/claw-cgp/logic/net"
-	. "github.com/yangsf5/claw-cgp/proto"
+	myNet "github.com/yangsf5/claw-cgp/common/net"
+	. "github.com/yangsf5/claw-cgp/common/proto"
 	"github.com/yangsf5/claw-cgp/util"
 )
 

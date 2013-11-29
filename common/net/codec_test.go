@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"testing"
 	pb "code.google.com/p/goprotobuf/proto"
-	. "github.com/yangsf5/claw-cgp/proto"
+	. "github.com/yangsf5/claw-cgp/common/proto"
 )
 
 func TestEncode(t *testing.T) {

@@ -9,7 +9,7 @@ import (
 	"net"
 	"reflect"
 	pb "code.google.com/p/goprotobuf/proto"
-	myNet "github.com/yangsf5/claw-cgp/logic/net"
+	myNet "github.com/yangsf5/claw-cgp/common/net"
 )
 
 type Player struct {
