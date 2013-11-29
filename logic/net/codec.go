@@ -19,8 +19,8 @@ func Encode(msg pb.Message) ([]byte, error) {
 	msgName = msgName[7:] //TODO better way to remove *proto.
 
 	buf := new(bytes.Buffer)
-	// Write total length
-	var totalLen uint16 = uint16(len(msgName)) + uint16(len(data))
+	// Write total length = length of msgNameLen + msgNameLen + dataLen
+	var totalLen uint16 = 1 + uint16(len(msgName)) + uint16(len(data))
 	err = binary.Write(buf, binary.BigEndian, totalLen)
 	if err != nil {
 		return nil, err
@@ -61,8 +61,8 @@ func Decode(input []byte) (pb.Message, error) {
 	// Read name of message
 	msgName := string(buf.Next(int(nameLen)))
 
-	// Read data of message
-	dataLen := int(totalLen) - int(nameLen)
+	// Read data of message = totalLen - length of nameLen - nameLen
+	dataLen := int(totalLen) - 1 - int(nameLen)
 	data := buf.Next(dataLen)
 
 	msgFunc, ok := protos[msgName]

@@ -13,6 +13,7 @@ func main() {
 
 	player := &player.Player{}
 	player.Login()
+	player.Ping()
 
 	for {
 		time.Sleep(100 * time.Millisecond)
