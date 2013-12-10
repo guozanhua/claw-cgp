@@ -1,7 +1,7 @@
 {{set . "title" "Hall"}}
 {{template "header.html" .}}
 
-<h1>You are now chatting as {{.user}}
+<h1 user={{.user}}>You are now chatting as {{.user}}
   <a href="/">Leave the hall</a></h1>
 
 <div id="thread">
@@ -46,33 +46,4 @@
   <input type="submit" value="send" id="send">
 </div>
 
-<script type="text/javascript">
-
-  // Create a socket
-  var socket = new WebSocket('ws://'+window.location.host+'/hall/hall/socket?user={{.user}}')
-
-  // Display a message
-  var display = function(event) {
-    $('#thread').append(tmpl('message_tmpl', {event: event}));
-    $('#thread').scrollTo('max')
-  }
-
-  // Message received on the socket
-  socket.onmessage = function(event) {
-    display(JSON.parse(event.data))
-  }
-
-  $('#send').click(function(e) {
-    var message = $('#message').val()
-    $('#message').val('')
-    socket.send(message)
-  });
-
-  $('#message').keypress(function(e) {
-    if(e.charCode == 13 || e.keyCode == 13) {
-      $('#send').click()
-      e.preventDefault()
-    }
-  })
-
-</script>
+<script src="/public/js/hall/chat.js" type="text/javascript" charset="utf-8"></script>
