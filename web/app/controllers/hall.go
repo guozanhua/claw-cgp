@@ -5,7 +5,7 @@ package controllers
 import (
 	"code.google.com/p/go.net/websocket"
 	"github.com/robfig/revel"
-	"github.com/robfig/revel/samples/chat/app/chatroom"
+	"github.com/yangsf5/claw-cgp/logic/chat"
 )
 
 type Hall struct {
@@ -18,11 +18,11 @@ func (c Hall) Hall(user string) revel.Result {
 
 func (c Hall) Socket(user string, ws *websocket.Conn) revel.Result {
 	// Join the room.
-	subscription := chatroom.Subscribe()
+	subscription := chat.Subscribe()
 	defer subscription.Cancel()
 
-	chatroom.Join(user)
-	defer chatroom.Leave(user)
+	chat.Join(user)
+	defer chat.Leave(user)
 
 	// Send down the archive.
 	for _, event := range subscription.Archive {
@@ -62,7 +62,7 @@ func (c Hall) Socket(user string, ws *websocket.Conn) revel.Result {
 			}
 
 			// Otherwise, say something.
-			chatroom.Say(user, msg)
+			chat.Say(user, msg)
 		}
 	}
 	return nil
