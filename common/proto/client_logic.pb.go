@@ -45,5 +45,45 @@ func (m *LCRetPong) GetTime() int32 {
 	return 0
 }
 
+type CLChat struct {
+	Type             *string `protobuf:"bytes,1,opt,name=type" json:"type,omitempty"`
+	User             *string `protobuf:"bytes,2,opt,name=user" json:"user,omitempty"`
+	Timestamp        *int32  `protobuf:"varint,3,opt,name=timestamp" json:"timestamp,omitempty"`
+	Text             *string `protobuf:"bytes,4,opt,name=text" json:"text,omitempty"`
+	XXX_unrecognized []byte  `json:"-"`
+}
+
+func (m *CLChat) Reset()         { *m = CLChat{} }
+func (m *CLChat) String() string { return proto1.CompactTextString(m) }
+func (*CLChat) ProtoMessage()    {}
+
+func (m *CLChat) GetType() string {
+	if m != nil && m.Type != nil {
+		return *m.Type
+	}
+	return ""
+}
+
+func (m *CLChat) GetUser() string {
+	if m != nil && m.User != nil {
+		return *m.User
+	}
+	return ""
+}
+
+func (m *CLChat) GetTimestamp() int32 {
+	if m != nil && m.Timestamp != nil {
+		return *m.Timestamp
+	}
+	return 0
+}
+
+func (m *CLChat) GetText() string {
+	if m != nil && m.Text != nil {
+		return *m.Text
+	}
+	return ""
+}
+
 func init() {
 }

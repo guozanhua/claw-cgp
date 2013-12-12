@@ -11,3 +11,11 @@ message LCRetPong
 {
 	optional int32 time = 1;
 }
+
+message CLChat
+{
+	optional string type = 1;
+	optional string user = 2;
+	optional int32 timestamp = 3;
+	optional string text = 4;
+}
