@@ -14,6 +14,6 @@ func Login(conn net.Conn) {
 	client := &player.Player {
 		Conn: conn,
 	}
-	go client.Start()
+	client.Start()
 }
 

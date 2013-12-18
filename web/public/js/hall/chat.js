@@ -1,4 +1,7 @@
 (function() {
+  var ProtoBuf = dcodeIO.ProtoBuf;
+  var CLPing = ProtoBuf.loadProtoFile('/public/proto/client_logic.proto').build('CLPing');
+
   var h1 = document.getElementsByTagName("h1")[0];
   var userName = (h1.getAttribute('user'));
   // Create a socket
@@ -18,7 +21,11 @@
   $('#send').click(function(e) {
     var message = $('#message').val()
     $('#message').val('')
-    socket.send(message)
+
+    //socket.send(message)
+    //TODO
+    //var req = new CLPing(111)
+    //socket.send(req.toArrayBuffer());
   });
 
   $('#message').keypress(function(e) {

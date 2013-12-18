@@ -17,7 +17,7 @@ type Player struct {
 func (p *Player) Start() {
 	fmt.Println("Player start")
 	p.Disconnected = false
-	go p.Tick()
+	p.Tick()
 }
 
 func (p *Player) Stop() {
