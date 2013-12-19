@@ -22,10 +22,7 @@
     var message = $('#message').val()
     $('#message').val('')
 
-    //socket.send(message)
-    //TODO
-    //var req = new CLPing(111)
-    //socket.send(req.toArrayBuffer());
+    socket.send(message)
   });
 
   $('#message').keypress(function(e) {

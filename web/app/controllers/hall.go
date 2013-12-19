@@ -17,7 +17,6 @@ func (c Hall) Hall(user string) revel.Result {
 }
 
 func (c Hall) Socket(user string, ws *websocket.Conn) revel.Result {
-	revel.INFO.Printf("%s", user)
 	door.Login(ws)
 	return nil
 }
