@@ -6,6 +6,7 @@
 
 <div id="thread">
   <script type="text/html" id="message_tmpl">
+    <!--
     <% if(event.Type == 'message') { %>
       <div class="message <%= event.User == '{{.user}}' ? 'you' : '' %>">
         <h2><%= event.User %></h2>
@@ -14,27 +15,20 @@
         </p>
       </div>
     <% } %>
-    <% if(event.Type == 'join') { %>
-      <div class="message notice">
-        <h2></h2>
-        <p>
-          <%= event.User %> joined the room
-        </p>
-      </div>
-    <% } %>
-    <% if(event.Type == 'leave') { %>
-      <div class="message notice">
-        <h2></h2>
-        <p>
-          <%= event.User %> left the room
-        </p>
-      </div>
-    <% } %>
-    <% if(event.Type == 'quit') { %>
+    
+    <% if(event == 'quit') { %>
       <div class="message important">
         <h2></h2>
         <p>
           You are now disconnected!
+        </p>
+      </div>
+    <% } %>
+    -->
+    <% if(1) { %>
+      <div class="message notice">
+        <p>
+          <%= data %>
         </p>
       </div>
     <% } %>
