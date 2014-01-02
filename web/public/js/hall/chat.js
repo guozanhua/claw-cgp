@@ -1,9 +1,6 @@
 (function() {
   window.onload = connect;
   function connect() {
-    var ProtoBuf = dcodeIO.ProtoBuf;
-    var CLPing = ProtoBuf.loadProtoFile('/public/proto/client_logic.proto').build('CLPing');
-
     var h1 = document.getElementsByTagName("h1")[0];
     var userName = (h1.getAttribute('user'));
     // Create a socket
