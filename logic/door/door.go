@@ -11,7 +11,7 @@ func init() {
 }
 
 func Login(conn *websocket.Conn, userName string) {
-	offline := make(chan bool)
+	offline := make(chan error)
 
 	recvMsg := make(chan string)
 	go func() {
@@ -38,9 +38,9 @@ func Login(conn *websocket.Conn, userName string) {
 				return
 			}
 
-			if websocket.Message.Send(conn, &msg) != nil {
+			if err := websocket.Message.Send(conn, msg); err != nil {
 				// Disconneted.
-				offline <- true
+				offline <- err
 				return
 			}
 		}

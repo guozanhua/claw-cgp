@@ -10,12 +10,12 @@ type User struct {
 	Name string
 	RecvMsg <-chan string
 	SendMsg chan<- string
-	Offline <-chan bool
+	Offline <-chan error
 
 	disconnected bool
 }
 
-func NewUser(name string, recv <-chan string, send chan<- string, offline <-chan bool) *User {
+func NewUser(name string, recv <-chan string, send chan<- string, offline <-chan error) *User {
 	return &User{name, recv, send, offline, false}
 }
 
@@ -24,16 +24,17 @@ func (u *User) Tick() {
 		select {
 		case msg, ok := <-u.RecvMsg:
 			if !ok {
-				u.Logout()
+				u.Logout("Recv channel closed")
 				return
 			}
 			fmt.Println("UserTick", msg, Manager.users)
 			Manager.broadcast <- msg
-		case _, ok := <-u.Offline:
+		case err, ok := <-u.Offline:
 			if !ok {
-				u.Logout()
+				u.Logout("Offline channel closed")
+			} else {
+				u.Logout(err.Error())
 			}
-			u.Logout()
 		}
 	}
 }
@@ -44,10 +45,10 @@ func (u *User) Send(msg string) {
 	}
 }
 
-func (u *User) Logout() {
+func (u *User) Logout(reason string) {
 	if !u.disconnected {
 		u.disconnected = true
 		close(u.SendMsg)
-		fmt.Println("User disconneted")
+		fmt.Println("User disconneted, err:", reason)
 	}
 }
