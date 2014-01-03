@@ -49,6 +49,7 @@ func (u *User) Logout(reason string) {
 	if !u.disconnected {
 		u.disconnected = true
 		close(u.SendMsg)
+		Manager.DelUser(u)
 		fmt.Println("User disconneted, err:", reason)
 	}
 }

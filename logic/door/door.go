@@ -28,7 +28,10 @@ func Login(conn *websocket.Conn, userName string) {
 
 	sendMsg := make(chan string)
 
-	user.Manager.AddUser(user.NewUser(userName, recvMsg, sendMsg, offline))
+	ok := user.Manager.AddUser(user.NewUser(userName, recvMsg, sendMsg, offline))
+	if !ok {
+		return
+	}
 
 	for {
 		select {
