@@ -3,21 +3,23 @@
 
 <div class="container">
 
-  <h2>Claw CGP, Sign in!</h2>
+  <p class="lead">Sign in!</p>
 
   <div id="signin">
     <form action="{{url "App.SignIn"}}">
       {{if .flash.error}}
-        <p class="error">
+        <p class="text-danger">
           {{.flash.error}}
-        <p>
+        </p>
       {{end}}
+
+      <div class="input-group">
+        <span class="input-group-addon">@</span>
+        <input type="text" class="form-control" placeholder="Nickname" id="user" name="user">
+      </div>
+      <br>
+
       <p>
-        <label for="nick">Choose a nick name</label>
-        <input type="text" name="user" id="user">
-      </p>
-      <p>
-        <label></label>
         <button type="submit" class="btn btn-primary btn-sm" id="enter">Enter the hall</button>
       </p>
     </form>
