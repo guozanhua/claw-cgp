@@ -4,6 +4,7 @@ package user
 
 import (
 	"fmt"
+	"github.com/yangsf5/claw-cgp/logic/proto"
 )
 
 type User struct {
@@ -27,8 +28,9 @@ func (u *User) Tick() {
 				u.Logout("Recv channel closed")
 				return
 			}
-			fmt.Println("UserTick", msg, Manager.users)
-			Manager.broadcast <- msg
+			fmt.Println("UserTick", msg)
+			chatMsg := &proto.Chat{u.Name, msg}
+			Manager.broadcast <- proto.Encode(chatMsg)
 		case err, ok := <-u.Offline:
 			if !ok {
 				u.Logout("Offline channel closed")

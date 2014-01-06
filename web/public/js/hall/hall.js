@@ -9,7 +9,6 @@ $(document).ready(function() {
   connect();
 
   var btn_test = $('#btn-test');
-  btn_test.text('haha');
   btn_test.click(function() {
     var content = btn_test.text(); 
     socket.send(content);
@@ -22,7 +21,8 @@ function connect() {
   socket = new WebSocket('ws://'+window.location.host+'/hall/hall/socket?user=' + userName);
 
   socket.onmessage = function(event) {
-    addToPanel(event.data);
+    var msg = JSON.parse(event.data);
+    addToPanel(msg.Name, msg.Content);
     refreshPanel();
   };
 
@@ -31,15 +31,16 @@ function connect() {
   };
 };
 
-function addToPanel(msg) {
-  msgs.push(msg);
+function addToPanel(prefix, msg) {
+  msgs.push({prefix: prefix, msg: msg});
 };
 
 function refreshPanel() {
   var panel = $('#panel-body');
   panel.empty();
   _.each(msgs, function(item) {
-    panel.append(item).append('<br>');
+    panel.append('<strong>' + item.prefix + ':</strong> ');
+    panel.append(item.msg).append('<br>');
   });
 }
 
