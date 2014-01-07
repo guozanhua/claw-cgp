@@ -37,6 +37,7 @@ func (u *User) Tick() {
 			} else {
 				u.Logout(err.Error())
 			}
+			return
 		}
 	}
 }
