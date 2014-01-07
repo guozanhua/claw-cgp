@@ -8,3 +8,12 @@ type Chat struct {
 }
 
 type HCChat Chat
+
+type Room struct {
+	Name string
+	OnlineCount int
+}
+
+type HCRoomList struct {
+	Rooms []Room
+}

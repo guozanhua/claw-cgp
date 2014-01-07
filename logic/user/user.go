@@ -28,7 +28,7 @@ func (u *User) Tick() {
 				u.Logout("Recv channel closed")
 				return
 			}
-			fmt.Println("UserTick", msg)
+			fmt.Println("User recv:", msg)
 			chatMsg := &proto.HCChat{u.Name, msg}
 			Manager.broadcast <- proto.Encode(chatMsg)
 		case err, ok := <-u.Offline:
@@ -44,7 +44,15 @@ func (u *User) Tick() {
 func (u *User) Send(msg string) {
 	if !u.disconnected {
 		u.SendMsg <- msg
+		fmt.Println("User send:", msg)
 	}
+}
+
+func (u *User) Login() {
+	roomMsg := &proto.HCRoomList{[]proto.Room{{"chess", 12}, {"poker", 100}}}
+	fmt.Println(roomMsg, u.disconnected)
+	u.Send(proto.Encode(roomMsg))
+	fmt.Println("User login, name:", u.Name)
 }
 
 func (u *User) Logout(reason string) {

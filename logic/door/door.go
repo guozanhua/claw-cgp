@@ -3,6 +3,7 @@
 package door
 
 import (
+	"time"
 	"code.google.com/p/go.net/websocket"
 	"github.com/yangsf5/claw-cgp/logic/user"
 )
@@ -27,26 +28,33 @@ func Login(conn *websocket.Conn, userName string) {
 	}()
 
 	sendMsg := make(chan string)
+	go func() {
+		for {
+			select {
+			case msg, ok := <-sendMsg:
+				// If the channel is closed, they disconnected.
+				if !ok {
+					return
+				}
 
-	ok := user.Manager.AddUser(user.NewUser(userName, recvMsg, sendMsg, offline))
+				if err := websocket.Message.Send(conn, msg); err != nil {
+					// Disconneted.
+					offline <- err
+					return
+				}
+			}
+		}
+	}()
+
+	u := user.NewUser(userName, recvMsg, sendMsg, offline)
+	ok := user.Manager.AddUser(u)
 	if !ok {
 		return
 	}
+	u.Login()
 
 	for {
-		select {
-		case msg, ok := <-sendMsg:
-			// If the channel is closed, they disconnected.
-			if !ok {
-				return
-			}
-
-			if err := websocket.Message.Send(conn, msg); err != nil {
-				// Disconneted.
-				offline <- err
-				return
-			}
-		}
+		time.Sleep(100 * time.Millisecond)
 	}
 }
 

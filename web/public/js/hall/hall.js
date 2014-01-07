@@ -10,7 +10,13 @@ msgHandles['HCChat'] = function(msg) {
   addToPanel(msg.Name, msg.Content);
   refreshPanel();
 };
-msgHandles[''] = function(msg) {
+msgHandles['HCRoomList'] = function(msg) {
+  var rooms = $('#panel-roomlist');
+  rooms.empty();
+  _.each(msg.Rooms, function(room) {
+    rooms.append('<a href="#">' + room.Name + '</a>' + '  <span class="badge">' + room.OnlineCount + '</span>');
+    rooms.append('<br>');
+  });
 };
 
 $(document).ready(function() {

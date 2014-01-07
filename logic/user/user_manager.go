@@ -3,6 +3,7 @@
 package user
 
 import (
+	"fmt"
 )
 
 type UserManager struct {
@@ -33,6 +34,7 @@ func (m *UserManager) DelUser(user *User) {
 func (m *UserManager) Tick() {
 	for {
 		msg := <-m.broadcast
+		fmt.Println("broadcast msg:", msg)
 		for _, user := range m.users {
 			user.Send(msg)
 		}
