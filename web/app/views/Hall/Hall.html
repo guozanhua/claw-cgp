@@ -3,8 +3,9 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-xs-12 col-sm-6 col-md-8">Login as <strong id="userName">{{.user}}</strong></div>
-    <div class="col-xs-6 col-md-4">
+    <div class="col-md-2">Login as <strong id="userName">{{.user}}</strong></div>
+    <div class="col-md-4">
+      <p><a href="/">Leave the hall</a></p>
     </div>
   </div>
 </div>
@@ -13,19 +14,26 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-md-2">
+    <div class="col-md-1">
       <p><button type="submit" class="btn btn-primary btn-lg" id="btn-test">test</button><p>
-      <p><a href="/">Leave the hall</a></p>
     </div>
-    <div class="col-md-10">
+    
+    <div class="col-md-3">
+      <div class="list-group" id="list-room">
+        <a href="#" class="list-group-item"><span class="badge"></span>Room List</a>
+      </div>
+    </div>
+
+    <div class="col-md-6">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3 class="panel-title"></h3>
+          <h3 class="panel-title">Chat or Event</h3>
         </div>
-        <div class="panel-body" id="panel-body">
+        <div class="panel-body" id="panel-chat">
         </div>
       </div>
     </div>
+
   </div>
 </div>
 

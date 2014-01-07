@@ -36,11 +36,14 @@ function addToPanel(prefix, msg) {
 };
 
 function refreshPanel() {
-  var panel = $('#panel-body');
+  var panel = $('#panel-chat');
   panel.empty();
   _.each(msgs, function(item) {
     panel.append('<strong>' + item.prefix + ':</strong> ');
     panel.append(item.msg).append('<br>');
   });
-}
+};
 
+function refreshRoomList() {
+  var rooms = $('#list-room');
+}
