@@ -5,6 +5,14 @@
 var socket;
 var msgs = [];
 
+var msgHandles = {};
+msgHandles['HCChat'] = function(msg) {
+  addToPanel(msg.Name, msg.Content);
+  refreshPanel();
+};
+msgHandles[''] = function(msg) {
+};
+
 $(document).ready(function() {
   connect();
 
@@ -21,9 +29,12 @@ function connect() {
   socket = new WebSocket('ws://'+window.location.host+'/hall/hall/socket?user=' + userName);
 
   socket.onmessage = function(event) {
-    var msg = JSON.parse(event.data);
-    addToPanel(msg.Name, msg.Content);
-    refreshPanel();
+    console.log(event);
+    var pack = JSON.parse(event.data);
+    var handle = msgHandles[pack.Type];
+    if(handle) {
+      handle(pack.Data);
+    }
   };
 
   socket.onclose = function() {

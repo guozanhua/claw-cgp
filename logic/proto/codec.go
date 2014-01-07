@@ -4,10 +4,20 @@ package proto
 
 import (
 	"encoding/json"
+	"reflect"
 )
 
+type Pack struct {
+	Type string
+	Data interface{}
+}
+
 func Encode(v interface{}) string {
-	b, err := json.Marshal(v)
+	msgName := reflect.TypeOf(v).String()
+	msgName = msgName[7:] //TODO better way to remove *proto.
+
+	pack := &Pack{msgName, v}
+	b, err := json.Marshal(pack)
 	if err != nil {
 		panic(err)
 	}

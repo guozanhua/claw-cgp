@@ -29,7 +29,7 @@ func (u *User) Tick() {
 				return
 			}
 			fmt.Println("UserTick", msg)
-			chatMsg := &proto.Chat{u.Name, msg}
+			chatMsg := &proto.HCChat{u.Name, msg}
 			Manager.broadcast <- proto.Encode(chatMsg)
 		case err, ok := <-u.Offline:
 			if !ok {

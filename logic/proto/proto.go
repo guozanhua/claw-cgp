@@ -6,3 +6,5 @@ type Chat struct {
 	Name string
 	Content string
 }
+
+type HCChat Chat
