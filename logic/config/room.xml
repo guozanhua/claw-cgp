@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<room name="room config">
+	<type>
+		<item name="Five Chess"/>
+		<item name="Link Game"/>
+	</type>
+
+	<game name="Five Chess">
+		<item name="playerCount" value="2"/>
+	</game>
+
+	<game name="Link Game">
+		<item name="playerCount" value="5"/>
+	</game>
+</room>
+
