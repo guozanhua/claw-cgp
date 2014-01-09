@@ -17,7 +17,9 @@ type User struct {
 }
 
 func NewUser(name string, recv <-chan string, send chan<- string, offline <-chan error) *User {
-	return &User{name, recv, send, offline, false}
+	u := &User{}
+	u.Name, u.RecvMsg, u.SendMsg, u.Offline = name, recv, send, offline
+	return u
 }
 
 func (u *User) Tick() {
