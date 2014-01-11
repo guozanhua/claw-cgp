@@ -3,7 +3,7 @@
 package room
 
 import (
-	"github.com/yangsf5/claw-cgp/logic/user"
+	"github.com/yangsf5/claw-cgp/app/logic/user"
 )
 
 func init() {

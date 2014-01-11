@@ -4,7 +4,7 @@ package user
 
 import (
 	"fmt"
-	"github.com/yangsf5/claw-cgp/logic/proto"
+	"github.com/yangsf5/claw-cgp/app/logic/proto"
 )
 
 type User struct {

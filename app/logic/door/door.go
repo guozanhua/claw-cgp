@@ -5,7 +5,7 @@ package door
 import (
 	"time"
 	"code.google.com/p/go.net/websocket"
-	"github.com/yangsf5/claw-cgp/logic/user"
+	"github.com/yangsf5/claw-cgp/app/logic/user"
 )
 
 func init() {

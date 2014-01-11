@@ -5,7 +5,7 @@ package main
 import (
 	"fmt"
 	"net"
-	"github.com/yangsf5/claw-cgp/logic/player"
+	"github.com/yangsf5/claw-cgp/app/logic/player"
 	"github.com/yangsf5/claw-cgp/util"
 )
 

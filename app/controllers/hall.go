@@ -5,7 +5,7 @@ package controllers
 import (
 	"code.google.com/p/go.net/websocket"
 	"github.com/robfig/revel"
-	"github.com/yangsf5/claw-cgp/logic/door"
+	"github.com/yangsf5/claw-cgp/app/logic/door"
 )
 
 type Hall struct {

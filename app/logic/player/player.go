@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"net"
 	pb "code.google.com/p/goprotobuf/proto"
-	myNet "github.com/yangsf5/claw-cgp/common/net"
+	myNet "github.com/yangsf5/claw-cgp/app/common/net"
 )
 
 type Player struct {
