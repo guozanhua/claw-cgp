@@ -30,8 +30,8 @@ var (
 )
 
 
-func init() {
-	content, err := ioutil.ReadFile("../config/room.xml")
+func ReadConfig(fileName string) {
+	content, err := ioutil.ReadFile(fileName)
 	util.CheckFatal(err)
 
 	err = xml.Unmarshal(content, &config)

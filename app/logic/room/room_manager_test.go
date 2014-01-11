@@ -7,6 +7,7 @@ import (
 )
 
 func TestParseConfig(t *testing.T) {
+	ReadConfig("../../../conf/room.xml");
 	if config.Games[0].Name != "Five Chess" {
 		t.Fail()
 	}
