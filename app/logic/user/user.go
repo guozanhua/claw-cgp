@@ -4,6 +4,7 @@ package user
 
 import (
 	"fmt"
+	"github.com/yangsf5/claw-cgp/app/logic/hall"
 	"github.com/yangsf5/claw-cgp/app/logic/proto"
 )
 
@@ -32,7 +33,7 @@ func (u *User) Tick() {
 			}
 			fmt.Println("User recv:", msg)
 			chatMsg := &proto.HCChat{u.Name, msg}
-			Manager.broadcast <- proto.Encode(chatMsg)
+			hall.Broadcast(proto.Encode(chatMsg))
 		case err, ok := <-u.Offline:
 			if !ok {
 				u.Logout("Offline channel closed")
@@ -62,7 +63,7 @@ func (u *User) Logout(reason string) {
 	if !u.disconnected {
 		u.disconnected = true
 		close(u.SendMsg)
-		Manager.DelUser(u)
+		hall.DelUser(u.Name)
 		fmt.Println("User disconneted, err:", reason)
 	}
 }

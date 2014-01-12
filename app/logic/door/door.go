@@ -5,10 +5,13 @@ package door
 import (
 	"time"
 	"code.google.com/p/go.net/websocket"
+	"github.com/yangsf5/claw-cgp/app/logic/hall"
+	"github.com/yangsf5/claw-cgp/app/logic/room"
 	"github.com/yangsf5/claw-cgp/app/logic/user"
 )
 
 func init() {
+	room.ReadConfig("conf/room.xml")
 }
 
 func Login(conn *websocket.Conn, userName string) {
@@ -47,10 +50,11 @@ func Login(conn *websocket.Conn, userName string) {
 	}()
 
 	u := user.NewUser(userName, recvMsg, sendMsg, offline)
-	ok := user.Manager.AddUser(u)
+	ok := hall.AddUser(u.Name, u)
 	if !ok {
 		return
 	}
+	u.Tick()
 	u.Login()
 
 	for {
