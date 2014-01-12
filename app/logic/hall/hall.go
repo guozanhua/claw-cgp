@@ -42,7 +42,7 @@ func Broadcast(msg string) {
 func Tick() {
 	for {
 		msg := <-broadcast
-		fmt.Println("broadcast msg:", msg)
+		fmt.Println("Hall broadcast msg:", msg)
 		for _, u := range users {
 			u.Send(msg)
 		}

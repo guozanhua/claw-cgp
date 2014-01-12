@@ -54,8 +54,8 @@ func Login(conn *websocket.Conn, userName string) {
 	if !ok {
 		return
 	}
-	u.Tick()
 	u.Login()
+	u.Tick()
 
 	for {
 		time.Sleep(100 * time.Millisecond)
