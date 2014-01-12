@@ -6,12 +6,11 @@ import (
 	"time"
 	"code.google.com/p/go.net/websocket"
 	"github.com/yangsf5/claw-cgp/app/logic/hall"
-	"github.com/yangsf5/claw-cgp/app/logic/room"
 	"github.com/yangsf5/claw-cgp/app/logic/user"
 )
 
 func init() {
-	room.ReadConfig("conf/room.xml")
+	hall.ReadConfig("conf/room.xml")
 }
 
 func Login(conn *websocket.Conn, userName string) {
@@ -50,12 +49,12 @@ func Login(conn *websocket.Conn, userName string) {
 	}()
 
 	u := user.NewUser(userName, recvMsg, sendMsg, offline)
-	ok := hall.AddUser(u.Name, u)
+	ok := hall.Enter(u.Name, u)
 	if !ok {
 		return
 	}
 	u.Login()
-	u.Tick()
+	go u.Tick()
 
 	for {
 		time.Sleep(100 * time.Millisecond)

@@ -4,6 +4,7 @@ package hall
 
 import (
 	"fmt"
+	"github.com/yangsf5/claw-cgp/app/logic/proto"
 )
 
 type User interface {
@@ -21,6 +22,21 @@ func init() {
 	broadcast = make(chan string)
 
 	go Tick()
+}
+
+func Enter(uid string, u User) bool {
+	ret := AddUser(uid, u)
+	if ret {
+		msg := &proto.HCRoomList{}
+		for k, _ := range configs {
+			protoRoom := proto.Room{k, 0}
+			msg.Rooms = append(msg.Rooms, protoRoom)
+		}
+
+		fmt.Println(msg)
+		u.Send(proto.Encode(msg))
+	}
+	return ret
 }
 
 func AddUser(uid string, u User) bool {

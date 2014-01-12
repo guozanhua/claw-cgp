@@ -1,6 +1,6 @@
 // Author: sheppard(ysf1026@gmail.com) 2014-01-08
 
-package room
+package hall
 
 import (
 	"testing"
@@ -8,7 +8,7 @@ import (
 
 func TestParseConfig(t *testing.T) {
 	ReadConfig("../../../conf/room.xml");
-	if config.Games[0].Name != "Five Chess" {
+	if configXml.Games[0].Name != "Five Chess" {
 		t.Fail()
 	}
 }

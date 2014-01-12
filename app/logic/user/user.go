@@ -53,9 +53,6 @@ func (u *User) Send(msg string) {
 }
 
 func (u *User) Login() {
-	roomMsg := &proto.HCRoomList{[]proto.Room{{"chess", 12}, {"poker", 100}}}
-	fmt.Println(roomMsg, u.disconnected)
-	u.Send(proto.Encode(roomMsg))
 	fmt.Println("User login, name:", u.Name)
 }
 
