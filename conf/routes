@@ -18,3 +18,6 @@ GET     /public/*filepath                       Static.Serve("public")
 # Hall
 Get	/hall/hall				Hall.Hall
 WS	/hall/hall/socket			Hall.Socket
+
+# Room
+Get	/room/default				Room.Default
