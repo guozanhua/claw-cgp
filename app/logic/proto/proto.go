@@ -12,6 +12,7 @@ type HCChat Chat
 type Room struct {
 	Name string
 	OnlineCount int
+	Href string
 }
 
 type HCRoomList struct {
