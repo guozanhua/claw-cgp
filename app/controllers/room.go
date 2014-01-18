@@ -10,6 +10,6 @@ type Room struct {
 	*revel.Controller
 }
 
-func (c Room) Default(user string) revel.Result {
-	return c.Render(user)
+func (c Room) Default(room string, user string) revel.Result {
+	return c.Render(room, user)
 }

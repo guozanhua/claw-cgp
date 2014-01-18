@@ -21,3 +21,7 @@ func (c Hall) Socket(user string, ws *websocket.Conn) revel.Result {
 	return nil
 }
 
+func (c Hall) EnterRoom(user string, room string) revel.Result {
+	return c.Redirect("/room/default")
+}
+
